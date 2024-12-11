@@ -75,6 +75,8 @@ function run() {
       ticking = true;
 
     if (diff < 0) {
+      time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()).toString().padStart(2, "0")}`;
+      $(".time").text(time);
       localStorage.clear()
       clearInterval(countdownInterval);
       return;
