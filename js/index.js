@@ -5,10 +5,16 @@ let time = ``;
 
 let playsound = false;
 let ticking = true;
-let ticking2 = true;
 
-const ticking_common = new Audio("audio/ticking_common.wav");
-const ticking_close = new Audio("audio/ticking_close.wav");
+const ticking_common = [
+  new Audio("audio/ticking_common_01.wav"),
+  new Audio("audio/ticking_common_02.wav"),
+  new Audio("audio/ticking_common_03.wav"),
+  new Audio("audio/ticking_common_04.wav"),
+  new Audio("audio/ticking_common_05.wav"),
+  new Audio("audio/ticking_common_06.wav"),
+  new Audio("audio/ticking_common_07.wav"),
+];
 
 function init() {
   if (localStorage.getItem("targetTimestamp"))
@@ -32,14 +38,13 @@ function init() {
   }
   console.log(targetTimestamp);
 
-  ticking_common.loop = true;
-  ticking_close.loop = true;
+  ticking_common.forEach(audio => {
+    audio.load();
+    audio.loop = false;
+  })
 
   $(".time").on("click", () => {
     playsound = !playsound;
-    ticking = true;
-    ticking_common.currentTime = 0;
-    ticking_close.currentTime = 0;
   })
 }
 
@@ -51,10 +56,14 @@ function run() {
     $(".time").text(time);
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
-        ticking = false;
-        ticking_common.play();
+       ticking_common[parseInt(diff / 1000) % 7].play();
+       ticking = false;
       }
-    }
+    }else
+      ticking = true;
+
+    if (diff < 0)
+      localStorage.clear()
   }, 50);
 }
 
