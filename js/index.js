@@ -9,13 +9,13 @@ let ticking = true;
 let volume = 0.1;
 
 const ticking_common = [
-  new Audio("audio/ticking_common_01.wav"),
-  new Audio("audio/ticking_common_02.wav"),
-  new Audio("audio/ticking_common_03.wav"),
-  new Audio("audio/ticking_common_04.wav"),
-  new Audio("audio/ticking_common_05.wav"),
-  new Audio("audio/ticking_common_06.wav"),
-  new Audio("audio/ticking_common_07.wav"),
+  new Audio("d-day/audio/ticking_common_01.wav"),
+  new Audio("d-day/audio/ticking_common_02.wav"),
+  new Audio("d-day/audio/ticking_common_03.wav"),
+  new Audio("d-day/audio/ticking_common_04.wav"),
+  new Audio("d-day/audio/ticking_common_05.wav"),
+  new Audio("d-day/audio/ticking_common_06.wav"),
+  new Audio("d-day/audio/ticking_common_07.wav"),
 ];
 
 function init() {
