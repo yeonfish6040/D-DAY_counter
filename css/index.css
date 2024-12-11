@@ -1,0 +1,25 @@
+html {
+  font-size: clamp(0.5rem, 1.5vh, 2rem);
+}
+
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  color: var(--color-primary-text);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-background);
+
+  .time {
+    font-size: 10rem;
+  }
+}
