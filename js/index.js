@@ -2,6 +2,7 @@ const dayFormat = /[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])/;
 const timeFormat = /([0-1][0-9]|2[0-3]):([0-5][0-9])/;
 let targetTimestamp = 0;
 let time = ``;
+let day = ``;
 
 let playsound = false;
 let ticking = true;
@@ -58,8 +59,10 @@ function run() {
     const currentTime = moment().valueOf();
     const diff = moment.duration(targetTimestamp - currentTime);
 
+    day = `D-${parseInt(diff / 1000 / (60 * 60 * 24)) + 1}`;
     time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()+1).toString().padStart(2, "0")}`;
-    $(".time").text(time);
+    $(".numbers > .day").text(day);
+    $(".numbers > .time").text(time);
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
        const target = ticking_common[parseInt(diff / 1000) % 7];
