@@ -20,8 +20,8 @@ const ticking_common = [
 ];
 
 function init() {
-  if (localStorage.getItem("targetTimestamp"))
-    targetTimestamp = parseInt(localStorage.getItem("targetTimestamp"));
+  if (getQueryValue("targetTimestamp"))
+    targetTimestamp = parseInt(getQueryValue("targetTimestamp"));
   else {
     let day = "";
     while (!dayFormat.test(day)) {
@@ -37,7 +37,7 @@ function init() {
     }
 
     targetTimestamp = moment(`${day} ${time}`, `YYYY-MM-DD HH:mm`).valueOf();
-    localStorage.setItem("targetTimestamp", targetTimestamp);
+    addQuery("targetTimestamp", targetTimestamp)
   }
   console.log(targetTimestamp);
 
@@ -59,7 +59,7 @@ function run() {
     const currentTime = moment().valueOf();
     const diff = moment.duration(targetTimestamp - currentTime);
 
-    day = `D-${parseInt(diff / 1000 / (60 * 60 * 24)) + 1}`;
+    day = `D-${diff > 0 ? parseInt(diff / 1000 / (60 * 60 * 24)) : "0"}`;
     time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()+1).toString().padStart(2, "0")}`;
     $(".numbers > .day").text(day);
     $(".numbers > .time").text(time);
@@ -78,11 +78,16 @@ function run() {
       ticking = true;
 
     if (diff < 0) {
-      time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()).toString().padStart(2, "0")}`;
+      time = `D-day`;
+      $(".day").text("");
       $(".time").text(time);
       localStorage.clear()
       clearInterval(countdownInterval);
       return;
     }
   }, 50);
+}
+
+function d_day() {
+
 }
