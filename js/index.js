@@ -6,6 +6,8 @@ let time = ``;
 let playsound = false;
 let ticking = true;
 
+let volume = 0.1;
+
 const ticking_common = [
   new Audio("audio/ticking_common_01.wav"),
   new Audio("audio/ticking_common_02.wav"),
@@ -41,6 +43,7 @@ function init() {
   ticking_common.forEach(audio => {
     audio.load();
     audio.loop = false;
+    audio.volume = volume;
   })
 
   $(".time").on("click", () => {
@@ -51,21 +54,31 @@ function init() {
 }
 
 function run() {
-  setInterval(() => {
+  const countdownInterval = setInterval(() => {
     const currentTime = moment().valueOf();
     const diff = moment.duration(targetTimestamp - currentTime);
+
     time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${diff.seconds().toString().padStart(2, "0")}`;
     $(".time").text(time);
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
-       ticking_common[parseInt(diff / 1000) % 7].play();
-       ticking = false;
+       const target = ticking_common[parseInt(diff / 1000) % 7];
+       if (diff / 1000 < 10) {
+         volume += 0.1;
+         if (!(volume > 1))
+          target.volume = volume;
+        }
+        target.play();
+        ticking = false;
       }
     }else
       ticking = true;
 
-    if (diff < 0)
+    if (diff < 1000) {
       localStorage.clear()
+      clearInterval(countdownInterval);
+      return;
+    }
   }, 50);
 }
 
