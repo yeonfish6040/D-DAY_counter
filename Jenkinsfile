@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_NAME = "D_DAY_Counter"
+        CONTAINER_NAME = "D-DAY_Counter"
     }
 
     stages {
@@ -18,7 +18,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'LYJ_DockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
                         sh """
                         echo $password | docker login --username $username --password-stdin
-                        docker build -f Dockerfile -t "$username/$CONTAINER_NAME"
+                        docker build -f Dockerfile -t "$username/$CONTAINER_NAME" .
                         """
                     }
                 }
