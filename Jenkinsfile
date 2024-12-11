@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_NAME = "D-DAY_Counter"
+        CONTAINER_NAME = "D_DAY_Counter"
     }
 
     stages {
