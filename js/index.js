@@ -81,6 +81,3 @@ function run() {
     }
   }, 50);
 }
-
-// function mainTimeCountDown()
-
