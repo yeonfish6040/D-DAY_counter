@@ -46,6 +46,8 @@ function init() {
   $(".time").on("click", () => {
     playsound = !playsound;
   })
+
+  run()
 }
 
 function run() {
@@ -69,5 +71,3 @@ function run() {
 
 // function mainTimeCountDown()
 
-init();
-run();
