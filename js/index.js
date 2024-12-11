@@ -58,7 +58,7 @@ function run() {
     const currentTime = moment().valueOf();
     const diff = moment.duration(targetTimestamp - currentTime);
 
-    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${diff.seconds().toString().padStart(2, "0")}`;
+    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()+1).toString().padStart(2, "0")}`;
     $(".time").text(time);
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
@@ -74,7 +74,7 @@ function run() {
     }else
       ticking = true;
 
-    if (diff < 1000) {
+    if (diff < 0) {
       localStorage.clear()
       clearInterval(countdownInterval);
       return;
