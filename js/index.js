@@ -40,8 +40,6 @@ function init() {
     targetTimestamp = moment(`${day} ${time}`, `YYYY-MM-DD HH:mm`).valueOf();
     addQuery("targetTimestamp", targetTimestamp)
   }
-  console.log(targetTimestamp);
-
   ticking_common.forEach(audio => {
     audio.load();
     audio.loop = false;
