@@ -8,7 +8,7 @@ let diff = -1;
 let playsound = false;
 let ticking = true;
 
-let volume = 0.1;
+let volume = 0.2;
 
 const ticking_common = [
   new Audio("d-day/audio/ticking_common_01.wav"),
@@ -46,7 +46,7 @@ function init() {
     audio.volume = volume;
   })
 
-  $(".numbers > .time").on("click", () => {
+  $(".numbers").on("click", () => {
     playsound = !playsound;
 
     if (diff < 0)
@@ -65,6 +65,11 @@ function run() {
     time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()).toString().padStart(2, "0")}`;
     $(".numbers > .day").text(day);
     $(".numbers > .time").text(time);
+
+    $(".clock > .s_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.seconds()))}deg)`);
+    $(".clock > .m_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.minutes()))}deg)`);
+    $(".clock > .h_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 12 * ((diff.hours()) % 12))}deg)`);
+
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
        const target = ticking_common[parseInt(diff / 1000) % 7];
@@ -83,6 +88,14 @@ function run() {
       time = `D-day`;
       $(".day").text("");
       $(".time").text(time);
+      $(".time").css("opacity", 0);
+      let opacity = 1;
+      const opacityInterval = setInterval(() => {
+        $(".hand").css("opacity", opacity);
+        $(".time").css("opacity", 1-opacity);
+        opacity -= 0.1;
+        if (opacity < 0) clearInterval(opacityInterval);
+      }, 100)
       localStorage.clear()
       clearInterval(countdownInterval);
       return;

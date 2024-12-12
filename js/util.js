@@ -27,6 +27,8 @@ const removeQuery = (key) => {
   const query = queries.find(query => query.split("=")[0] === key);
   if (!query) return null;
 
-
-  location.href = url.replace(query, "");
+  if (url.indexOf("&") !== -1)
+    location.href = url.replace(`&${query}`, "");
+  else
+    location.href = url.replace(query, "");
 }

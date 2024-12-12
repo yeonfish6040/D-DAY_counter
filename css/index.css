@@ -23,6 +23,7 @@ html {
 
   >.numbers {
     text-align: center;
+    z-index: 10;
   }
 
   >.numbers > .day {
@@ -39,6 +40,44 @@ html {
     height: 100%;
     width: 100%;
 
-    z-index: -1;
+    z-index: 1;
+
+    >.hand {
+      position: fixed;
+
+      top: 50%;
+      left: 50%;
+
+      display: block;
+
+    }
+
+    >.s_hand {
+      height: 90%;
+      width: 0.5%;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    >.m_hand {
+      height: 90%;
+      width: 1%;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    >.h_hand {
+      height: 60%;
+      width: 1%;
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    >.hand > .draw {
+      display: block;
+
+      background-color: var(--color-primary-clock-head);
+
+      height: 55%;
+      width: 100%;
+
+    }
   }
 }
