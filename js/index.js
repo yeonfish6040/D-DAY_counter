@@ -21,9 +21,22 @@ const ticking_common = [
 ];
 
 function init() {
-  if (getQueryValue("targetTimestamp"))
+  if (getQueryValue("targetTimestamp")) {
     targetTimestamp = parseInt(getQueryValue("targetTimestamp"));
-  else {
+    ticking_common.forEach(audio => {
+      audio.load();
+      audio.loop = false;
+      audio.volume = volume;
+    })
+
+    $(".numbers").on("click", () => {
+      playsound = !playsound;
+
+      if (diff < 0)
+        removeQuery("targetTimestamp")
+    })
+    run()
+  }else {
     let day = "";
     while (!dayFormat.test(day)) {
       day = prompt("날짜를 입력해주세요 (YYYY-MM-DD)");
@@ -40,20 +53,6 @@ function init() {
     targetTimestamp = moment(`${day} ${time}`, `YYYY-MM-DD HH:mm`).valueOf();
     addQuery("targetTimestamp", targetTimestamp)
   }
-  ticking_common.forEach(audio => {
-    audio.load();
-    audio.loop = false;
-    audio.volume = volume;
-  })
-
-  $(".numbers").on("click", () => {
-    playsound = !playsound;
-
-    if (diff < 0)
-      removeQuery("targetTimestamp")
-  })
-
-  run()
 }
 
 function run() {
@@ -69,6 +68,8 @@ function run() {
     $(".clock > .s_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.seconds()))}deg)`);
     $(".clock > .m_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.minutes()))}deg)`);
     $(".clock > .h_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 12 * ((diff.hours()) % 12))}deg)`);
+    setTimeout(() => {$(".clock > .hand").css("transition", `none`);}, 500)
+
 
     if (diff % 1000 < 150 && diff % 1000 > 50) {
       if (playsound && ticking) {
