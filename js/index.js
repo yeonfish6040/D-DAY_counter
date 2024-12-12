@@ -3,6 +3,7 @@ const timeFormat = /([0-1][0-9]|2[0-3]):([0-5][0-9])/;
 let targetTimestamp = 0;
 let time = ``;
 let day = ``;
+let diff = -1;
 
 let playsound = false;
 let ticking = true;
@@ -47,8 +48,11 @@ function init() {
     audio.volume = volume;
   })
 
-  $(".time").on("click", () => {
+  $(".numbers > .time").on("click", () => {
     playsound = !playsound;
+
+    if (diff < 0)
+      removeQuery("targetTimestamp")
   })
 
   run()
@@ -57,10 +61,10 @@ function init() {
 function run() {
   const countdownInterval = setInterval(() => {
     const currentTime = moment().valueOf();
-    const diff = moment.duration(targetTimestamp - currentTime);
+    diff = moment.duration(targetTimestamp - currentTime);
 
     day = `D-${diff > 0 ? parseInt(diff / 1000 / (60 * 60 * 24)) : "0"}`;
-    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()+1).toString().padStart(2, "0")}`;
+    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()).toString().padStart(2, "0")}`;
     $(".numbers > .day").text(day);
     $(".numbers > .time").text(time);
     if (diff % 1000 < 150 && diff % 1000 > 50) {
