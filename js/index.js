@@ -65,7 +65,7 @@ function run() {
     $(".numbers > .day").text(day);
     $(".numbers > .time").text(time);
 
-    $(".clock > .s_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.seconds()}deg)`);
+    $(".clock > .s_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.seconds()))}deg)`);
     $(".clock > .m_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 60 * (diff.minutes()))}deg)`);
     $(".clock > .h_hand").css("transform", `translate(-50%, -50%) rotate(${360 - (360 / 12 * ((diff.hours()) % 12))}deg)`);
     setTimeout(() => {$(".clock > .hand").css("transition", `none`);}, 500)
