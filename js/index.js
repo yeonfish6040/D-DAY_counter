@@ -61,7 +61,7 @@ function run() {
     diff = moment.duration(targetTimestamp - currentTime);
 
     day = `D-${diff > 0 ? parseInt(diff / 1000 / (60 * 60 * 24)) : "0"}`;
-    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${(diff.seconds()).toString().padStart(2, "0")}`;
+    time = `${diff.hours().toString().padStart(2, "0")}:${diff.minutes().toString().padStart(2, "0")}:${diff.seconds().toString().padStart(2, "0")}`;
     $(".numbers > .day").text(day);
     $(".numbers > .time").text(time);
 
