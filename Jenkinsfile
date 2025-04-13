@@ -46,7 +46,7 @@ pipeline {
                         docker stop "$CONTAINER_NAME" || true
                         docker rm "$CONTAINER_NAME" || true
                         docker pull "$username/$CONTAINER_NAME"
-                        docker run -it -d --name "$CONTAINER_NAME" --restart always -p 9009:80 "$username/$CONTAINER_NAME"
+                        docker run -it -d --name "$CONTAINER_NAME" --restart always -p 127.0.0.1:9009:80 "$username/$CONTAINER_NAME"
                         docker image prune -f
                         """
                     }
